@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * check_cycle - checks if the linked list contains d cycle
+ * check_cycle - checks if a linked list contains a cycle
  *
  * Return: 1 if the list has a cycle, 0 if it doesn't
  */
@@ -22,4 +22,4 @@ int check_cycle(listint_t *list)
 	}
 
 	return (0);
-
+}
