@@ -1,22 +1,28 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
-""" script that takes in a URL, sends a request to the URL and displays the
-body of the response.
-"""
 import requests
 import sys
+
+# Define the URL
+"""Sends a POST request to http://0.0.0.0:5000/search_user with a given letter.
+
+Usage: ./8-json_api.py <letter>
+  - The letter is sent as the value of the variable `q`.
+  - If no letter is provided, sends `q=""`.
+"""
+import sys
+import requests
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        q = ""
-    else:
-        q = sys.argv[1]
+    letter = "" if len(sys.argv) == 1 else sys.argv[1]
+    payload = {"q": letter}
+
+    r = requests.post("http://0.0.0.0:5000/search_user", data=payload)
     try:
-        url = "http://0.0.0.0:5000/search_user"
-        data = {"q": q}
-        r = requests.post(url, data).json()
-        if {"id", "name"} <= r.keys():
-            print("[{}] {}".format(r['id'], r['name']))
-        else:
+        response = r.json()
+        if response == {}:
             print("No result")
+        else:
+            print("[{}] {}".format(response.get("id"), response.get("name")))
     except ValueError:
         print("Not a valid JSON")
